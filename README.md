@@ -1,4 +1,4 @@
-*kratos-example 一个用户管理的小例子*
+**kratos-example 一个用户管理的小例子**
 
 * kratos.bff.api - bff层, api接口, 允许http/rpc调用
 * kratos.user.service - 用户服务, 仅允许rpc调用
