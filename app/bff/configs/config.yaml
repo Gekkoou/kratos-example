@@ -1,0 +1,47 @@
+server:
+  name: "kratos.bff.api"
+  version: "1.0.0"
+  http:
+    addr: 0.0.0.0:8000
+    timeout: 1s
+  grpc:
+    addr: 0.0.0.0:9000
+    timeout: 1s
+
+data:
+  database:
+    driver: mysql
+    source: root:root@tcp(127.0.0.1:3306)/kratos-example?charset=utf8mb4&parseTime=True&loc=Local
+    debug: false
+  redis:
+    addr: 127.0.0.1:6379
+    password: ""
+    read_timeout: 0.2s
+    write_timeout: 0.2s
+    db: 0
+
+zap:
+  level: info
+  prefix: ""
+  format: console
+  encode_level: LowercaseLevelEncoder
+  stacktrace_key: stacktrace
+  max_age: 10
+  show_line: true
+  log_in_console: true
+
+registry:
+  consul:
+    addr: 127.0.0.1:8500
+    scheme: http
+
+jwt:
+  server:
+    signing_key: some-secret-key-bff
+    token_key: token
+  client:
+    signing_key: some-secret-key-user
+
+trace:
+  enable: true
+  endpoint: http://127.0.0.1:14268/api/traces

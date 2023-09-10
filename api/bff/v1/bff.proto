@@ -1,0 +1,119 @@
+syntax = "proto3";
+
+package api.bff.v1;
+
+import "google/api/annotations.proto";
+import "google/protobuf/any.proto";
+
+option go_package = "kratos-example/api/bff/v1;v1";
+option java_multiple_files = true;
+option java_package = "api.bff.v1";
+
+service User {
+  rpc Login (LoginRequest) returns (LoginReply) {
+    option (google.api.http) = {
+      post: "/v1/login"
+      body: "*"
+    };
+  };
+  rpc Register (CreateUserRequest) returns (GetUserInfoReply) {
+    option (google.api.http) = {
+      post: "/v1/register"
+      body: "*"
+    };
+  };
+  rpc GetUserInfo (GetUserInfoRequest) returns (GetUserInfoReply) {
+    option (google.api.http) = {
+      get: "/v1/user/info"
+    };
+  };
+  rpc GetUserList (GetUserListRequest) returns (GetUserListReply) {
+    option (google.api.http) = {
+      get: "/v1/user/list"
+    };
+  };
+  rpc DeleteUser (DeleteRequest) returns (Response) {
+    option (google.api.http) = {
+      get: "/v1/user/delete"
+    };
+  };
+  rpc ChangePassword (ChangePasswordRequest) returns (Response) {
+    option (google.api.http) = {
+      post: "/v1/user/changePassword"
+      body: "*"
+    };
+  };
+}
+
+message LoginRequest {
+  string name = 1;
+  string password = 2;
+}
+
+message LoginReply {
+  message LoginReplyData{
+    UserInfoData user_info = 1;
+    string token = 2;
+    int32 expires_at = 3;
+  }
+  int32 code = 1;
+  string message = 2;
+  LoginReplyData data = 3;
+}
+
+message CreateUserRequest {
+  string name = 1;
+  string password = 2;
+  string phone = 3;
+}
+
+message GetUserInfoRequest {
+  uint64 id = 1;
+}
+
+message UserInfoData{
+  uint64 id = 1;
+  string name = 2;
+  string phone = 3;
+  int32 gold = 4;
+}
+
+message GetUserInfoReply {
+  message GetUserInfoReplyData {
+    UserInfoData user_info = 1;
+  }
+  int32 code = 1;
+  string message = 2;
+  GetUserInfoReplyData data = 3;
+}
+
+message GetUserListRequest {
+  int32 page = 1;
+  int32 pageSize = 2;
+}
+
+message GetUserListReply {
+  message GetUserListReplyData {
+    repeated UserInfoData list = 1;
+    int64 total = 2;
+  }
+  int32 code = 1;
+  string message = 2;
+  GetUserListReplyData data = 3;
+}
+
+message DeleteRequest {
+  uint64 id = 1;
+}
+
+message Response {
+  int32 code = 1;
+  string message = 2;
+  google.protobuf.Any data = 3;
+}
+
+message ChangePasswordRequest {
+  uint64 id = 1;
+  string password = 2;
+  string new_password = 3;
+}

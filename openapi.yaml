@@ -1,0 +1,237 @@
+# Generated with protoc-gen-openapi
+# https://github.com/google/gnostic/tree/master/cmd/protoc-gen-openapi
+
+openapi: 3.0.3
+info:
+    title: User API
+    version: 0.0.1
+paths:
+    /v1/login:
+        post:
+            tags:
+                - User
+            operationId: User_Login
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.bff.v1.LoginRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.bff.v1.LoginReply'
+    /v1/register:
+        post:
+            tags:
+                - User
+            operationId: User_Register
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.bff.v1.CreateUserRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.bff.v1.GetUserInfoReply'
+    /v1/user/changePassword:
+        post:
+            tags:
+                - User
+            operationId: User_ChangePassword
+            requestBody:
+                content:
+                    application/json:
+                        schema:
+                            $ref: '#/components/schemas/api.bff.v1.ChangePasswordRequest'
+                required: true
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.bff.v1.Response'
+    /v1/user/delete:
+        get:
+            tags:
+                - User
+            operationId: User_DeleteUser
+            parameters:
+                - name: id
+                  in: query
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.bff.v1.Response'
+    /v1/user/info:
+        get:
+            tags:
+                - User
+            operationId: User_GetUserInfo
+            parameters:
+                - name: id
+                  in: query
+                  schema:
+                    type: integer
+                    format: uint64
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.bff.v1.GetUserInfoReply'
+    /v1/user/list:
+        get:
+            tags:
+                - User
+            operationId: User_GetUserList
+            parameters:
+                - name: page
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+                - name: pageSize
+                  in: query
+                  schema:
+                    type: integer
+                    format: int32
+            responses:
+                "200":
+                    description: OK
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/api.bff.v1.GetUserListReply'
+components:
+    schemas:
+        api.bff.v1.ChangePasswordRequest:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                password:
+                    type: string
+                newPassword:
+                    type: string
+        api.bff.v1.CreateUserRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                password:
+                    type: string
+                phone:
+                    type: string
+        api.bff.v1.GetUserInfoReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                data:
+                    $ref: '#/components/schemas/api.bff.v1.GetUserInfoReply_GetUserInfoReplyData'
+        api.bff.v1.GetUserInfoReply_GetUserInfoReplyData:
+            type: object
+            properties:
+                userInfo:
+                    $ref: '#/components/schemas/api.bff.v1.UserInfoData'
+        api.bff.v1.GetUserListReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                data:
+                    $ref: '#/components/schemas/api.bff.v1.GetUserListReply_GetUserListReplyData'
+        api.bff.v1.GetUserListReply_GetUserListReplyData:
+            type: object
+            properties:
+                list:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/api.bff.v1.UserInfoData'
+                total:
+                    type: integer
+                    format: int64
+        api.bff.v1.LoginReply:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                data:
+                    $ref: '#/components/schemas/api.bff.v1.LoginReply_LoginReplyData'
+        api.bff.v1.LoginReply_LoginReplyData:
+            type: object
+            properties:
+                userInfo:
+                    $ref: '#/components/schemas/api.bff.v1.UserInfoData'
+                token:
+                    type: string
+                expiresAt:
+                    type: integer
+                    format: int32
+        api.bff.v1.LoginRequest:
+            type: object
+            properties:
+                name:
+                    type: string
+                password:
+                    type: string
+        api.bff.v1.Response:
+            type: object
+            properties:
+                code:
+                    type: integer
+                    format: int32
+                message:
+                    type: string
+                data:
+                    $ref: '#/components/schemas/google.protobuf.Any'
+        api.bff.v1.UserInfoData:
+            type: object
+            properties:
+                id:
+                    type: integer
+                    format: uint64
+                name:
+                    type: string
+                phone:
+                    type: string
+                gold:
+                    type: integer
+                    format: int32
+        google.protobuf.Any:
+            type: object
+            properties:
+                '@type':
+                    type: string
+                    description: The type of the serialized message.
+            additionalProperties: true
+            description: Contains an arbitrary serialized message along with a @type that describes the type of the serialized message.
+tags:
+    - name: User
