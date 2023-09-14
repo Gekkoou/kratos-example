@@ -11,6 +11,7 @@ import (
 	"github.com/go-kratos/kratos/v2/middleware/tracing"
 	"github.com/go-kratos/kratos/v2/registry"
 	"github.com/go-kratos/kratos/v2/transport/grpc"
+	"github.com/go-kratos/kratos/v2/transport/http"
 	"github.com/hashicorp/consul/api"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -43,7 +44,7 @@ func init() {
 	flag.StringVar(&zapDir, "zap_dir", "../../log", "zap log path, eg: -zao_dir=\"./log\"")
 }
 
-func newApp(logger log.Logger, gs *grpc.Server, rr registry.Registrar) *kratos.App {
+func newApp(logger log.Logger, gs *grpc.Server, hs *http.Server, rr registry.Registrar) *kratos.App {
 	return kratos.New(
 		kratos.ID(id),
 		kratos.Name(Name),
@@ -52,6 +53,7 @@ func newApp(logger log.Logger, gs *grpc.Server, rr registry.Registrar) *kratos.A
 		kratos.Logger(logger),
 		kratos.Server(
 			gs,
+			hs,
 		),
 		kratos.Registrar(rr),
 	)
