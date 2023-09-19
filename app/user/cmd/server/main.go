@@ -64,7 +64,7 @@ func main() {
 
 	// consul 配置中心
 	consulClient, err := api.NewClient(&api.Config{
-		Address: "127.0.0.1:8500",
+		Address: "consul:8500",
 	})
 	if err != nil {
 		panic(err)

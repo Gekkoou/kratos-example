@@ -2,19 +2,19 @@ server:
   name: "kratos.user.service"
   version: "1.0.0"
   http:
-    addr: 0.0.0.0:8001
+    addr: 0.0.0.0:8000
     timeout: 1s
   grpc:
-    addr: 0.0.0.0:9001
+    addr: 0.0.0.0:9000
     timeout: 1s
 
 data:
   database:
     driver: mysql
-    source: root:root@tcp(127.0.0.1:3306)/kratos-example?charset=utf8mb4&parseTime=True&loc=Local
+    source: root:root@tcp(mysql:3306)/kratos-example?charset=utf8mb4&parseTime=True&loc=Local
     debug: false
   redis:
-    addr: 127.0.0.1:6379
+    addr: redis:6379
     password: ""
     read_timeout: 0.2s
     write_timeout: 0.2s
@@ -32,7 +32,7 @@ zap:
 
 registry:
   consul:
-    addr: 127.0.0.1:8500
+    addr: consul:8500
     scheme: http
 
 jwt:
@@ -43,4 +43,4 @@ jwt:
 
 trace:
   enable: true
-  endpoint: http://127.0.0.1:14268/api/traces
+  endpoint: http://jaeger:14268/api/traces

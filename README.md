@@ -27,13 +27,13 @@ git clone git@github.com:Gekkoou/kratos-example.git
 cd kratos-example
 make init
 
-# 启动环境服务 (mysql/redis/consul/jaeger/prometheus/grafana)
+# 启动微服务bff与user & 环境服务 (mysql/redis/consul/jaeger/prometheus/grafana)
 docker-compose up -d
 
-# 终端1执行, 选择 app/bff/cmd/server
-kratos run
+# 测试
+curl 'http://127.0.0.1:8000/v1/user/info?id=1'
 
-# 终端2执行, 选择 app/user/cmd/server
+# 如开启单个服务, 在项目根目录下执行
 kratos run
 ```
 

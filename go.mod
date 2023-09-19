@@ -4,7 +4,6 @@ go 1.19
 
 require (
 	github.com/bytedance/sonic v1.10.0
-	github.com/envoyproxy/protoc-gen-validate v0.10.1
 	github.com/go-kratos/kratos/contrib/config/consul/v2 v2.0.0-20230830131453-6c026bce56a9
 	github.com/go-kratos/kratos/contrib/log/zap/v2 v2.0.0-20230830131453-6c026bce56a9
 	github.com/go-kratos/kratos/contrib/metrics/prometheus/v2 v2.0.0-20230830131453-6c026bce56a9

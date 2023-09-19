@@ -30,8 +30,8 @@ scrape_configs:
 
   - job_name: "kratos-bff"
     static_configs:
-      - targets: ["host.docker.internal:8000"]
+      - targets: ["kratos-bff:8000"]
 
   - job_name: "kratos-user"
     static_configs:
-      - targets: [ "host.docker.internal:8001" ]
+      - targets: [ "kratos-user:8000"]

@@ -60,5 +60,32 @@ services:
     networks:
       - kratos-net
 
+  kratos-bff:
+    image: golang:1.21-alpine3.18
+    container_name: kratos-bff
+    volumes:
+      - ./:/usr/src/myapp
+    working_dir: /usr/src/myapp
+    command: /bin/sh -c "cd app/bff/cmd/server && go build . && ./server"
+    expose:
+      - 8000
+      - 9000
+    ports:
+      - 8000:8000
+    networks:
+      - kratos-net
+  kratos-user:
+    image: golang:1.21-alpine3.18
+    container_name: kratos-user
+    volumes:
+      - ./:/usr/src/myapp
+    working_dir: /usr/src/myapp
+    command: /bin/sh -c "cd app/user/cmd/server && go build . && ./server"
+    expose:
+      - 8000
+      - 9000
+    networks:
+      - kratos-net
+
 networks:
   kratos-net:
